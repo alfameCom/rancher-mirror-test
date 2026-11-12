@@ -1,0 +1,36 @@
+name: Mirror images
+
+on:
+  workflow_dispatch:
+    inputs:
+      filter:
+        description: "Only mirror images matching this substring (empty = all)"
+        required: false
+        default: ""
+
+# Packages published with GITHUB_TOKEN are linked to this repository, so they
+# inherit its visibility. That is what makes the mirrored images public.
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: mirror
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: imjasonh/setup-crane@v0.4
+
+      - name: Log in to ghcr.io
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" \
+            | crane auth login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+      - name: Mirror
+        run: ./mirror.sh "${{ inputs.filter }}"
