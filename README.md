@@ -1,7 +1,7 @@
 # rancher-mirror
 
 Public mirror of the RKE2 and Rancher container images used by Alfame-managed
-downstream clusters, republished under `ghcr.io/alfamecom/rancher/*`.
+downstream clusters, republished under `ghcr.io/alfamecom/rancher-mirror-test/*`.
 
 ## Why
 
@@ -30,7 +30,7 @@ mirrors:
     endpoint:
       - "https://ghcr.io"
     rewrite:
-      "^rancher/(.*)": "alfamecom/rancher/$1"
+      "^rancher/(.*)": "alfamecom/rancher-mirror-test/rancher/$1"
 ```
 
 Note that `endpoint` redirects **all** `docker.io` pulls to `ghcr.io`; `rewrite`
@@ -98,7 +98,7 @@ all platforms. Verify any image with:
 
 ```sh
 crane digest registry.rancher.com/rancher/hardened-kubernetes:v1.27.16-rke2r2-build20240819
-crane digest ghcr.io/alfamecom/rancher/hardened-kubernetes:v1.27.16-rke2r2-build20240819
+crane digest ghcr.io/alfamecom/rancher-mirror-test/rancher/hardened-kubernetes:v1.27.16-rke2r2-build20240819
 ```
 
 ## Package visibility

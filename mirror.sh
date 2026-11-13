@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Mirror RKE2 / Rancher container images to ghcr.io/alfamecom.
+# Mirror RKE2 / Rancher container images to ghcr.io/alfamecom/rancher-mirror-test.
 #
 # Source is registry.rancher.com rather than docker.io: it carries the same
 # images, allows anonymous pulls, and has no pull rate limit.
@@ -10,7 +10,7 @@
 set -uo pipefail
 
 SRC_REGISTRY="${SRC_REGISTRY:-registry.rancher.com}"
-DST_PREFIX="${DST_PREFIX:-ghcr.io/alfamecom}"
+DST_PREFIX="${DST_PREFIX:-ghcr.io/alfamecom/rancher-mirror-test}"
 LIST="${LIST:-images.txt}"
 FILTER="${1:-}"
 
